@@ -5,6 +5,7 @@
  */
 package krconverse;
 
+import krconverse.baroness.controller.DealCardsController;
 import ks.common.games.Solitaire;
 import ks.common.model.Column;
 import ks.common.model.Deck;
@@ -74,7 +75,7 @@ public class Baroness extends Solitaire {
 		// TODO Auto-generated method stub
 		initializeModel(getSeed());
 		initializeView();
-		//initializeControllers();
+		initializeControllers();
 	}
 
 	/**
@@ -85,18 +86,18 @@ public class Baroness extends Solitaire {
 	 */
 	private void initializeModel(int seed) {
 		// add the deck to the model
-		deck = new Deck();
+		deck = new Deck("deck");
 		deck.create(seed);
 		model.addElement(deck);
 		
 		// add the columns to the model
 		for (int i = 0; i < 5; i++) {
-			columns[i] = new Column();
+			columns[i] = new Column("col" + (i + 1));
 			model.addElement(columns[i]);
 		}
 
 		// add the foundation to the model
-		foundation = new Pile();
+		foundation = new Pile("foundation");
 		model.addElement(foundation);
 		
 		// update the score and cards left
@@ -153,6 +154,13 @@ public class Baroness extends Solitaire {
 		addViewWidget(cardsLeftView);
 	}
 
+	/**
+	 * Initializes the controllers for the plugin.
+	 */
+	private void initializeControllers() {
+		deckView.setMouseAdapter(new DealCardsController(this, model));
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
