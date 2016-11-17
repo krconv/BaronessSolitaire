@@ -12,8 +12,7 @@ import org.junit.Test;
 import krconverse.Baroness;
 import ks.common.model.Column;
 import ks.common.model.Deck;
-import ks.common.view.Container;
-
+import ks.launcher.Main;
 /**
  * 
  */
@@ -22,12 +21,12 @@ public class DealMoveTest {
 	@Test
 	public void test() {
 		Baroness game = new Baroness();
-		Deck deck = new Deck();
-		deck.create(Deck.OrderBySuit);
+		Main.generateWindow(game, Deck.OrderBySuit);
+		Deck deck = (Deck) game.getModelElement("deck");
 		
 		Column[] columns = new Column[5];
 		for (int i = 0; i < 5; i++) {
-			columns[i] = new Column();
+			columns[i] = (Column) game.getModelElement("col" + (i + 1));
 		}
 		
 		DealMove move = new DealMove(deck, columns);

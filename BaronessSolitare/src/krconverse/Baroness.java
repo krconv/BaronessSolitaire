@@ -190,7 +190,6 @@ public class Baroness extends Solitaire {
 	public boolean hasWon() {
 		return getScoreValue() == 0;
 	}
-	
 
 	/** 
 	 * Launches the Baroness Solitaire variation.
