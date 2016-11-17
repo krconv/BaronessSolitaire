@@ -16,16 +16,16 @@ import ks.common.model.Model;
 import ks.common.model.Move;
 
 /**
- * Controller to control the process of dealing five cards.
+ * Controller to control the process of dealing cards.
  */
-public class DealCardsController extends MouseAdapter {
+public class DeckController extends MouseAdapter {
 	Baroness game;
 	Model model;
 	
 	/**
-	 * Creates a new controller to deal five cards.
+	 * Creates a new controller to deal cards.
 	 */
-	public DealCardsController(Baroness game, Model model) {
+	public DeckController(Baroness game, Model model) {
 		this.game = game;
 		this.model = model;
 	}

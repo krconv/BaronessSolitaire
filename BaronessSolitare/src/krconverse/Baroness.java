@@ -5,8 +5,11 @@
  */
 package krconverse;
 
-import krconverse.baroness.controller.DealCardsController;
+import krconverse.baroness.controller.DeckController;
+import krconverse.baroness.controller.ColumnController;
+import ks.common.controller.SolitaireMouseMotionAdapter;
 import ks.common.games.Solitaire;
+import ks.common.games.SolitaireUndoAdapter;
 import ks.common.model.Column;
 import ks.common.model.Deck;
 import ks.common.model.Pile;
@@ -158,7 +161,17 @@ public class Baroness extends Solitaire {
 	 * Initializes the controllers for the plugin.
 	 */
 	private void initializeControllers() {
-		deckView.setMouseAdapter(new DealCardsController(this, model));
+		// set up the deck controllers
+		deckView.setMouseAdapter(new DeckController(this, model));
+		deckView.setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
+		deckView.setUndoAdapter(new SolitaireUndoAdapter(this));
+		
+		// set up the column controllers
+		for (int i = 0; i < 5; i++) {
+			columnViews[i].setMouseAdapter(new ColumnController(this, model, columnViews[i]));
+			columnViews[i].setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
+			columnViews[i].setUndoAdapter(new SolitaireUndoAdapter(this));
+		}
 	}
 	
 	/*
