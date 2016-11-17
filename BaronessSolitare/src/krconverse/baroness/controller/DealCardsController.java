@@ -9,7 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import krconverse.Baroness;
-import krconverse.baroness.move.DealMove;
+import krconverse.baroness.move.DealCardsMove;
 import ks.common.model.Column;
 import ks.common.model.Deck;
 import ks.common.model.Model;
@@ -40,12 +40,12 @@ public class DealCardsController extends MouseAdapter {
 			columns[i] = (Column) model.getElement("col" + (i + 1));
 		}
 
-		Move move = new DealMove(deck, columns);
+		Move move = new DealCardsMove(deck, columns);
 		if (move.doMove(game)) {
 			// move was successful
 			game.pushMove(move);
 			game.refreshWidgets();
-		}		
+		}	
 	}
 	
 	

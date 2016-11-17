@@ -13,7 +13,7 @@ import ks.common.model.Move;
 /**
  * The move which deals cards from the deck to the columns.
  */
-public class DealMove extends Move {
+public class DealCardsMove extends Move {
 	
 	Deck deck;
 	Column[] columns;
@@ -24,7 +24,7 @@ public class DealMove extends Move {
 	 * @param deck The deck to deal from.
 	 * @param columns The columns to deal to, ordered from left to right.
 	 */
-	public DealMove(Deck deck, Column[] columns) {
+	public DealCardsMove(Deck deck, Column[] columns) {
 		this.deck = deck;
 		this.columns = columns;
 		this.cardsMoved = Math.min(columns.length, deck.count());

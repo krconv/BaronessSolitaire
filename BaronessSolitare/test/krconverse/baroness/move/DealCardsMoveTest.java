@@ -14,9 +14,9 @@ import ks.common.model.Column;
 import ks.common.model.Deck;
 import ks.launcher.Main;
 /**
- * 
+ * Tests that the DealMove class is working properly.
  */
-public class DealMoveTest {
+public class DealCardsMoveTest {
 
 	@Test
 	public void test() {
@@ -29,7 +29,7 @@ public class DealMoveTest {
 			columns[i] = (Column) game.getModelElement("col" + (i + 1));
 		}
 		
-		DealMove move = new DealMove(deck, columns);
+		DealCardsMove move = new DealCardsMove(deck, columns);
 		// make sure that the move hasn't done anything yet
 		assertEquals(52, deck.count());
 		for (int i = 0; i < 5; i++) {
@@ -54,9 +54,9 @@ public class DealMoveTest {
 			assertTrue(columns[i].empty());
 		}
 		
-		DealMove[] moves = new DealMove[11]; // 11 deals to deal the whole deck
+		DealCardsMove[] moves = new DealCardsMove[11]; // 11 deals to deal the whole deck
 		for (int i = 0; i < 11; i++) {
-			moves[i] = new DealMove(deck, columns);
+			moves[i] = new DealCardsMove(deck, columns);
 			moves[i].doMove(game);
 		}
 		
@@ -75,7 +75,7 @@ public class DealMoveTest {
 		assertEquals(2, columns[4].peek().getRank());
 		
 		// a new move on the deck would be invalid
-		move = new DealMove(deck, columns);
+		move = new DealCardsMove(deck, columns);
 		assertFalse(move.valid(game));
 		assertFalse(move.doMove(game));
 		assertTrue(deck.empty());
