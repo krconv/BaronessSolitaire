@@ -39,7 +39,7 @@ public class DealCardsMoveTest {
 		assertTrue(move.valid(game));
 		
 		// test making the move
-		move.doMove(game);
+		assertTrue(move.doMove(game));
 		assertEquals(47, deck.count());
 		assertEquals(47, game.getNumLeft().getValue());
 		for (int i = 0; i < 5; i++) { // make sure the cards were dealt right to left
@@ -47,7 +47,7 @@ public class DealCardsMoveTest {
 		}
 		
 		// test undoing the move
-		move.undo(game);
+		assertTrue(move.undo(game));
 		assertEquals(52, deck.count());
 		assertEquals(52, game.getNumLeft().getValue());
 		for (int i = 0; i < 5; i++) {
@@ -57,7 +57,7 @@ public class DealCardsMoveTest {
 		DealCardsMove[] moves = new DealCardsMove[11]; // 11 deals to deal the whole deck
 		for (int i = 0; i < 11; i++) {
 			moves[i] = new DealCardsMove(deck, columns);
-			moves[i].doMove(game);
+			assertTrue(moves[i].doMove(game));
 		}
 		
 		// make sure the last two were dealt from right to left
@@ -90,10 +90,10 @@ public class DealCardsMoveTest {
 		assertEquals(1, columns[3].peek().getRank());
 		assertEquals(11, columns[4].count());
 		assertEquals(2, columns[4].peek().getRank());
-		
+		assertFalse(move.undo(game));
 		
 		// make sure undoing the last move removes the last two cards dealt
-		moves[10].undo(game);
+		assertTrue(moves[10].undo(game));
 		assertEquals(2, deck.count());
 		assertEquals(2, game.getNumLeft().getValue());
 		assertEquals(10, columns[0].count());

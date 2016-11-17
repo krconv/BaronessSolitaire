@@ -45,7 +45,7 @@ public class DealCardsMove extends Move {
 			deck.add(columns[columns.length - cardsMoved + i].get());
 		}
 		game.updateNumberCardsLeft(cardsMoved);
-		return true;
+		return cardsMoved > 0;
 	}
 
 	@Override
