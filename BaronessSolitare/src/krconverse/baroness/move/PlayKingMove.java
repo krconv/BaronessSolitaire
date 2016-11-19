@@ -29,7 +29,7 @@ public class PlayKingMove extends Move {
 		this.sourceColumn = sourceColumn;
 		this.foundation = foundation;
 		
-		if (sourceColumn.count() == 0) { // no card to play
+		if (sourceColumn == null || sourceColumn.empty()) { // no card to play
 			isValid = false;
 		} else {
 			isValid = sourceColumn.peek().getRank() == 13;

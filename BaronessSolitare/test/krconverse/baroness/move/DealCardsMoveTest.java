@@ -18,6 +18,10 @@ import ks.launcher.Main;
  */
 public class DealCardsMoveTest {
 
+	
+	/**
+	 * 
+	 */
 	@Test
 	public void test() {
 		Baroness game = new Baroness();
