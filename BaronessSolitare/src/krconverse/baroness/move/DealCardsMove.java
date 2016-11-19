@@ -1,7 +1,7 @@
 /**
- * DealMove.java
+ * DealCardsMove.java
  * 
- * @author Kodey Converse (kronverse@wpi.edu)
+ * @author Kodey Converse (krconverse@wpi.edu)
  */
 package krconverse.baroness.move;
 

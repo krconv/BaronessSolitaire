@@ -1,3 +1,8 @@
+/**
+ * PlayKingMoveTest.java
+ * 
+ * @author Kodey Converse (krconverse@wpi.edu)
+ */
 package krconverse.baroness.move;
 
 import org.junit.After;

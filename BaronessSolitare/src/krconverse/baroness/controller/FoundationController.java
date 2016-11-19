@@ -1,3 +1,9 @@
+/**
+ * FoundationController.java
+ * 
+ * @author Kodey Converse (krconverse@wpi.edu)
+ */
+
 package krconverse.baroness.controller;
 
 import java.awt.event.MouseAdapter;

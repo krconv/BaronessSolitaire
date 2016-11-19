@@ -1,7 +1,7 @@
 /**
  * DeckControllerTest.java
  * 
- * @author Kodey Converse (kodey@krconv.com)
+ * @author Kodey Converse (krconverse@wpi.edu)
  */
 package krconverse.baroness.controller;
 

@@ -1,5 +1,5 @@
 /**
- * DealFiveCardsController.java
+ * DeckController.java
  * 
  * @author Kodey Converse (krconverse@wpi.edu)
  */
