@@ -33,10 +33,27 @@ public class PlayPairMove extends Move {
 		this.targetColumn = targetColumn;
 		this.cardBeingDragged = cardBeingDragged;
 		this.foundation = foundation;
-		if (targetColumn.count() == 0) { // no card to pair it with
+		if (targetColumn.empty()) { // no card to pair it with
 			isValid = false;
 		} else {
 			isValid = targetColumn.peek().getRank() + cardBeingDragged.getRank() == 13;
+		}
+	}
+	
+	/**
+	 * Creates a move which plays two cards which add up to thirteen.
+	 * @param sourceColumn The column with the first card being played.
+	 * @param targetColumn The column with the second card being played.
+	 * @param foundation The foundation to move the played pair to.
+	 */
+	public PlayPairMove(Column sourceColumn, Column targetColumn, Pile foundation) {
+		this.sourceColumn = sourceColumn;
+		this.targetColumn = targetColumn;
+		this.foundation = foundation;
+		if (sourceColumn.empty() || targetColumn.empty()) { // no cards to pair
+			isValid = false;
+		} else {
+			isValid = sourceColumn.peek().getRank() + targetColumn.peek().getRank() == 13;
 		}
 	}
 
@@ -47,7 +64,7 @@ public class PlayPairMove extends Move {
 	public boolean doMove(Solitaire game) {
 		if (isValid) {
 			foundation.add(targetColumn.get());
-			foundation.add(cardBeingDragged);
+			foundation.add(cardBeingDragged == null ? sourceColumn.get() : cardBeingDragged);
 			game.updateScore(-2);
 			return true;
 		} else {

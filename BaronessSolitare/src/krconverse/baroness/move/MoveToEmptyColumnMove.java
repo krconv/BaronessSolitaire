@@ -32,13 +32,24 @@ public class MoveToEmptyColumnMove extends Move {
 		isValid = targetColumn.empty() && !sourceColumn.empty();
 	}
 
+	/**
+	 * Creates a move which moves a card to an empty column.
+	 * @param sourceColumn The column with the card being moved.
+	 * @param targetColumn The column that the card is being moved to.
+	 */
+	public MoveToEmptyColumnMove(Column sourceColumn, Column targetColumn) {
+		this.sourceColumn = sourceColumn;
+		this.targetColumn = targetColumn;
+		isValid = targetColumn.empty() && sourceColumn.count() > 1;
+	}
+	
 	/* (non-Javadoc)
 	 * @see ks.common.model.Move#doMove(ks.common.games.Solitaire)
 	 */
 	@Override
 	public boolean doMove(Solitaire game) {
 		if (isValid) {
-			targetColumn.add(cardBeingDragged);
+			targetColumn.add(cardBeingDragged == null ? sourceColumn.get() : cardBeingDragged);
 			return true;
 		} else {
 			return false;

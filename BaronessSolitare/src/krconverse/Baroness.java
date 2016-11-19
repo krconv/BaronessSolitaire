@@ -7,7 +7,13 @@ package krconverse;
 
 import krconverse.baroness.controller.DeckController;
 import krconverse.baroness.controller.FoundationController;
+import krconverse.baroness.move.DealCardsMove;
+import krconverse.baroness.move.MoveToEmptyColumnMove;
+import krconverse.baroness.move.PlayKingMove;
+import krconverse.baroness.move.PlayPairMove;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 
 import krconverse.baroness.controller.ColumnController;
@@ -46,7 +52,7 @@ import ks.launcher.Main;
  * Score: A player's score is determined by how many cards are left in play.
  * This means that the goal of the game is to achieve a low or zero score.
  */
-public class Baroness extends Solitaire  implements SolvableSolitaire {
+public class Baroness extends Solitaire implements SolvableSolitaire {
 
 	Deck deck; // deck which cards are dealt from
 	Column[] columns = new Column[5]; // columns which cards are dealt to and played from
@@ -214,9 +220,47 @@ public class Baroness extends Solitaire  implements SolvableSolitaire {
 		Main.generateWindow(new Baroness(), (int) System.currentTimeMillis());
 	}
 
+	/* (non-Javadoc)
+	 * @see ks.common.games.SolvableSolitaire#availableMoves()
+	 */
 	@Override
 	public Enumeration<Move> availableMoves() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Move> moves = new ArrayList<Move>();
+
+		// try to play any Kings on the board
+		for (int i = 0; i < 5; i++) {
+			PlayKingMove move = new PlayKingMove(columns[i], foundation);
+			if (move.valid(this)) {
+				moves.add(move);
+			}
+		}
+
+		// try to play any available pairs
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				PlayPairMove move = new PlayPairMove(columns[i], columns[j], foundation);
+				if (move.valid(this)) {
+					moves.add(move);
+				}
+			}
+		}
+
+		// try to move cards to empty columns
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				MoveToEmptyColumnMove move = new MoveToEmptyColumnMove(columns[i], columns[j]);
+				if (move.valid(this)) {
+					moves.add(move);
+				}
+			}
+		}
+		
+		// try to deal cards
+		DealCardsMove move = new DealCardsMove(deck, columns);
+		if (move.valid(this)) {
+			moves.add(move);
+		}
+
+		return Collections.enumeration(moves);
 	}
 }
