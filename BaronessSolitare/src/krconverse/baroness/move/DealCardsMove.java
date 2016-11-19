@@ -14,10 +14,10 @@ import ks.common.model.Move;
  * The move which deals cards from the deck to the columns.
  */
 public class DealCardsMove extends Move {
-	
 	Deck deck;
 	Column[] columns;
 	int cardsMoved;
+	boolean isValid;
 	
 	/**
 	 * Creates a new move to deal cards from the deck to the columns.
@@ -27,29 +27,42 @@ public class DealCardsMove extends Move {
 	public DealCardsMove(Deck deck, Column[] columns) {
 		this.deck = deck;
 		this.columns = columns;
-		this.cardsMoved = Math.min(columns.length, deck.count());
+		if (deck == null || deck.empty() || columns == null) {
+			isValid = false;
+		} else {
+			this.cardsMoved = Math.min(columns.length, deck.count());
+			isValid = true;
+		}
 	}
 
 	@Override
 	public boolean doMove(Solitaire game) {
-		for (int i = 0; i < cardsMoved; i++) {
-			columns[columns.length - 1 - i].add(deck.get());
+		if (isValid) {
+			for (int i = 0; i < cardsMoved; i++) {
+				columns[columns.length - 1 - i].add(deck.get());
+			}
+			game.updateNumberCardsLeft(-1 * cardsMoved);
+			return true;
+		} else {
+			return false;
 		}
-		game.updateNumberCardsLeft(-1 * cardsMoved);
-		return cardsMoved > 0;
 	}
 
 	@Override
 	public boolean undo(Solitaire game) {
-		for (int i = 0; i < cardsMoved; i++) {
-			deck.add(columns[columns.length - cardsMoved + i].get());
+		if (isValid) {
+			for (int i = 0; i < cardsMoved; i++) {
+				deck.add(columns[columns.length - cardsMoved + i].get());
+			}
+			game.updateNumberCardsLeft(cardsMoved);
+			return true;
+		} else {
+			return false;
 		}
-		game.updateNumberCardsLeft(cardsMoved);
-		return cardsMoved > 0;
 	}
 
 	@Override
 	public boolean valid(Solitaire game) {
-		return !deck.empty();
+		return isValid;
 	}
 }
