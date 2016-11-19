@@ -172,7 +172,7 @@ public class Baroness extends Solitaire implements SolvableSolitaire {
 		
 		// set up the column controllers
 		for (int i = 0; i < 5; i++) {
-			columnViews[i].setMouseAdapter(new ColumnController(this, model, columnViews[i]));
+			columnViews[i].setMouseAdapter(new ColumnController(this, columnViews[i]));
 			columnViews[i].setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
 			columnViews[i].setUndoAdapter(new SolitaireUndoAdapter(this));
 		}

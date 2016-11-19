@@ -9,9 +9,9 @@ import krconverse.baroness.move.PlayKingMove;
 import krconverse.baroness.move.PlayPairMove;
 import ks.common.model.Card;
 import ks.common.model.Column;
-import ks.common.model.Model;
 import ks.common.model.Move;
 import ks.common.model.Pile;
+import ks.common.view.CardView;
 import ks.common.view.ColumnView;
 import ks.common.view.Container;
 import ks.common.view.Widget;
@@ -21,18 +21,15 @@ import ks.common.view.Widget;
  */
 public class ColumnController extends MouseAdapter {
 	Baroness game;
-	Model model;
 	ColumnView view;
 	
 	/**
 	 * Creates a new controller to play a pair of cards.
 	 * @param game The Baroness game.
-	 * @param model The model.
 	 * @param view The column view that this controller is registered for.
 	 */
-	public ColumnController(Baroness game, Model model, ColumnView view) {
+	public ColumnController(Baroness game, ColumnView view) {
 		this.game = game;
-		this.model = model;
 		this.view = view;
 	}
 
@@ -53,8 +50,11 @@ public class ColumnController extends MouseAdapter {
 		}
 
 		// pick up the card that the player is dragging
-		container.setActiveDraggingObject(view.getCardViewForTopCard(event), event);
-		container.setDragSource(view);
+		CardView dragged = view.getCardViewForTopCard(event);
+		if (dragged != null) {
+			container.setActiveDraggingObject(dragged, event);
+			container.setDragSource(view);
+		}
 
 		// redraw the column
 		view.redraw();
@@ -94,7 +94,7 @@ public class ColumnController extends MouseAdapter {
 				move = new MoveCardToEmptyColumnMove(sourceColumn, column, cardBeingDragged);
 			} else {
 				// play the pair
-				move = new PlayPairMove(sourceColumn, column, cardBeingDragged, (Pile) model.getElement("foundation"));
+				move = new PlayPairMove(sourceColumn, column, cardBeingDragged, (Pile) game.getModelElement("foundation"));
 			}
 			// make the move
 			if (move.doMove (game)) {
