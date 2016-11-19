@@ -29,9 +29,8 @@ public class DeckControllerTest extends KSTestCase {
 	Column[] columns;
 	Pile foundation;
 	
-
-	/**
-	 * @throws Exception
+	/* (non-Javadoc)
+	 * @see junit.framework.TestCase#setUp()
 	 */
 	@Before
 	public void setUp() throws Exception {
@@ -47,8 +46,8 @@ public class DeckControllerTest extends KSTestCase {
 		foundation = (Pile) game.getModelElement("foundation");
 	}
 
-	/**
-	 * @throws Exception
+	/* (non-Javadoc)
+	 * @see junit.framework.TestCase#tearDown()
 	 */
 	@After
 	public void tearDown() throws Exception {
