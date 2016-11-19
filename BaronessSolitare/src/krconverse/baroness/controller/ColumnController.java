@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import krconverse.Baroness;
+import krconverse.baroness.move.PlayKingMove;
 import krconverse.baroness.move.PlayPairMove;
 import ks.common.model.Card;
 import ks.common.model.Column;
@@ -99,5 +100,21 @@ public class ColumnController extends MouseAdapter {
 
 		container.releaseDraggingObject();
 		container.repaint();
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
+	 */
+	@Override
+	public void mouseClicked(MouseEvent event) {
+		super.mouseClicked(event);
+		// playing a King
+		Column column = (Column) view.getModelElement();
+		PlayKingMove move = new PlayKingMove(column, (Pile) game.getModelElement("foundation"));
+		if (move.doMove (game)) {
+			// played the pair successfully
+			game.pushMove(move);
+		}
 	}
 }
