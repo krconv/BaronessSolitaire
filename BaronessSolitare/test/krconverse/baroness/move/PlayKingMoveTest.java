@@ -159,5 +159,4 @@ public class PlayKingMoveTest {
 		new PlayKingMove(columns[0], null, null);
 		new PlayKingMove(null, null, null);
 	}
-
 }

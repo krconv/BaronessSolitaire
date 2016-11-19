@@ -33,7 +33,7 @@ public class PlayPairMove extends Move {
 		this.targetColumn = targetColumn;
 		this.cardBeingDragged = cardBeingDragged;
 		this.foundation = foundation;
-		if (targetColumn.empty()) { // no card to pair it with
+		if (targetColumn == null || cardBeingDragged == null || targetColumn.empty()) { // no card to pair it with
 			isValid = false;
 		} else {
 			isValid = targetColumn.peek().getRank() + cardBeingDragged.getRank() == 13;
@@ -50,7 +50,7 @@ public class PlayPairMove extends Move {
 		this.sourceColumn = sourceColumn;
 		this.targetColumn = targetColumn;
 		this.foundation = foundation;
-		if (sourceColumn.empty() || targetColumn.empty()) { // no cards to pair
+		if (sourceColumn == null || sourceColumn.empty() || targetColumn == null || targetColumn.empty()) { // no cards to pair
 			isValid = false;
 		} else {
 			isValid = sourceColumn.peek().getRank() + targetColumn.peek().getRank() == 13;
