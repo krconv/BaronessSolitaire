@@ -5,6 +5,7 @@
  */
 package krconverse.baroness.controller;
 
+import java.util.Collections;
 import java.util.Enumeration;
 
 import org.junit.After;
@@ -89,11 +90,11 @@ public class DeckControllerTest extends KSTestCase {
 		for (int i = 0; i < 11; i++) {
 			controller.mouseClicked(createClicked(game, game.getDeckView(), 0, 0));
 		}
-		assertEquals(11, countEnumeration(game.getMoves()));
+		assertEquals(11, Collections.list(game.getMoves()).size());
 		
 		// clicking on the deck again shouldn't do anything
 		controller.mouseClicked(createClicked(game, game.getDeckView(), 0, 0));
-		assertEquals(11, countEnumeration(game.getMoves()));
+		assertEquals(11, Collections.list(game.getMoves()).size());
 		
 		// undo the valid deals
 		for (int i = 0; i < 11; i++) {
@@ -101,18 +102,29 @@ public class DeckControllerTest extends KSTestCase {
 		}
 	}
 	
+
 	/**
-	 * Counts and returns the number of elements in the given enumeration.
-	 * @param enumeration The enumeration to count.
-	 * @return The number of elements.
+	 * Test that dropping a card on the deck does nothing. 
 	 */
-	private int countEnumeration(Enumeration<?> enumeration) {
-		int moveCount = 0;
-		while (enumeration.hasMoreElements()) {
-			enumeration.nextElement();
-			moveCount++;
-		}
-		return moveCount;
+	@Test
+	public void testDropCard() {
+		ColumnController columnController = new ColumnController(game, game.getColumnViews()[0]);
+		DeckController controller = new DeckController(game);
+		
+		// test that dragging from an empty column does nothing
+		columnController.mousePressed(createPressed(game, game.getColumnViews()[0], 0, 0));
+		controller.mouseReleased(createReleased(game, game.getDeckView(), 0, 0));
+		assertTrue(Collections.list(game.getMoves()).isEmpty());
+		assertTrue(columns[0].empty());
+		
+		// test that dragging a card does nothing
+		controller.mouseClicked(createClicked(game, game.getDeckView(), 0, 0));
+		columnController.mousePressed(createPressed(game, game.getColumnViews()[0], 0, 0));
+		controller.mouseReleased(createReleased(game, game.getDeckView(), 0, 0));
+		assertEquals(1, Collections.list(game.getMoves()).size());
+		assertEquals(1, columns[0].count());
+		
+		game.undoMove();
 	}
 
 	/**

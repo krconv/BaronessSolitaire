@@ -178,7 +178,7 @@ public class Baroness extends Solitaire implements SolvableSolitaire {
 		}
 		
 		// and lastly the foundation controllers
-		foundationView.setMouseAdapter(new FoundationController(this, model));
+		foundationView.setMouseAdapter(new FoundationController(this));
 		foundationView.setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
 		foundationView.setUndoAdapter(new SolitaireUndoAdapter(this));
 	}
