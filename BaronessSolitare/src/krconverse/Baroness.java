@@ -8,7 +8,7 @@ package krconverse;
 import krconverse.baroness.controller.DeckController;
 import krconverse.baroness.controller.FoundationController;
 import krconverse.baroness.move.DealCardsMove;
-import krconverse.baroness.move.MoveToEmptyColumnMove;
+import krconverse.baroness.move.MoveCardToEmptyColumnMove;
 import krconverse.baroness.move.PlayKingMove;
 import krconverse.baroness.move.PlayPairMove;
 
@@ -248,7 +248,7 @@ public class Baroness extends Solitaire implements SolvableSolitaire {
 		// try to move cards to empty columns
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
-				MoveToEmptyColumnMove move = new MoveToEmptyColumnMove(columns[i], columns[j]);
+				MoveCardToEmptyColumnMove move = new MoveCardToEmptyColumnMove(columns[i], columns[j]);
 				if (move.valid(this)) {
 					moves.add(move);
 				}

@@ -13,7 +13,7 @@ import ks.common.model.Move;
 /**
  * A move which moves a card to an empty column.
  */
-public class MoveToEmptyColumnMove extends Move {
+public class MoveCardToEmptyColumnMove extends Move {
 	Column sourceColumn;
 	Column targetColumn;
 	Card cardBeingDragged;
@@ -25,7 +25,7 @@ public class MoveToEmptyColumnMove extends Move {
 	 * @param targetColumn The column that the card is being dragged to.
 	 * @param cardBeingDragged The card that is being dragged.
 	 */
-	public MoveToEmptyColumnMove(Column sourceColumn, Column targetColumn, Card cardBeingDragged) {
+	public MoveCardToEmptyColumnMove(Column sourceColumn, Column targetColumn, Card cardBeingDragged) {
 		this.sourceColumn = sourceColumn;
 		this.targetColumn = targetColumn;
 		this.cardBeingDragged = cardBeingDragged;
@@ -37,7 +37,7 @@ public class MoveToEmptyColumnMove extends Move {
 	 * @param sourceColumn The column with the card being moved.
 	 * @param targetColumn The column that the card is being moved to.
 	 */
-	public MoveToEmptyColumnMove(Column sourceColumn, Column targetColumn) {
+	public MoveCardToEmptyColumnMove(Column sourceColumn, Column targetColumn) {
 		this.sourceColumn = sourceColumn;
 		this.targetColumn = targetColumn;
 		isValid = targetColumn.empty() && sourceColumn.count() > 1;

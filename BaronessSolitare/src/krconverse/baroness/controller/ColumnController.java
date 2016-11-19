@@ -4,7 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import krconverse.Baroness;
-import krconverse.baroness.move.MoveToEmptyColumnMove;
+import krconverse.baroness.move.MoveCardToEmptyColumnMove;
 import krconverse.baroness.move.PlayKingMove;
 import krconverse.baroness.move.PlayPairMove;
 import ks.common.model.Card;
@@ -91,7 +91,7 @@ public class ColumnController extends MouseAdapter {
 			Move move;
 			if (column.empty()) {
 				// moving a card to the empty column
-				move = new MoveToEmptyColumnMove(sourceColumn, column, cardBeingDragged);
+				move = new MoveCardToEmptyColumnMove(sourceColumn, column, cardBeingDragged);
 			} else {
 				// play the pair
 				move = new PlayPairMove(sourceColumn, column, cardBeingDragged, (Pile) model.getElement("foundation"));
