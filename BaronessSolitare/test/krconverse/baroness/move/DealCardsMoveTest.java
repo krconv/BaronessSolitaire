@@ -49,6 +49,21 @@ public class DealCardsMoveTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
+		// check that the deck is correct
+		assertEquals(52, deck.count());
+		for (int i = 0; i < 52; i++) {
+			assertEquals(i % 13 + 1, deck.peek(i).getRank());
+		}
+		// check that the columns are empty
+		for (int i = 0; i < 5; i++) {
+			assertTrue(columns[i].empty());
+		}
+		// check that the foundation is empty
+		assertTrue(foundation.empty());
+		
+		// and check the score and cards left counters
+		assertEquals(52, game.getScoreValue());
+		assertEquals(52, game.getNumLeft().getValue());
 		game.dispose();
 	}
 
