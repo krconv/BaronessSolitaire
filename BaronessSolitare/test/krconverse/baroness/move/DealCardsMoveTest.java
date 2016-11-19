@@ -26,6 +26,9 @@ public class DealCardsMoveTest {
 	Pile foundation;
 	
 
+	/**
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		game = new Baroness();
@@ -40,11 +43,17 @@ public class DealCardsMoveTest {
 		foundation = (Pile) game.getModelElement("foundation");
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	@After
 	public void tearDown() throws Exception {
 		game.dispose();
 	}
 
+	/**
+	 * Test method for {@link krconverse.baroness.move.DealCardsMove#doMove(ks.common.games.Solitaire)}.
+	 */
 	@Test
 	public void testDoMove() {
 		// test that cards can be dealt out
@@ -109,6 +118,9 @@ public class DealCardsMoveTest {
 		}
 	}
 
+	/**
+	 * Test method for {@link krconverse.baroness.move.DealCardsMove#undo(ks.common.games.Solitaire)}.
+	 */
 	@Test
 	public void testUndo() {
 		// test that dealt cards can be undone
@@ -154,6 +166,9 @@ public class DealCardsMoveTest {
 		}
 	}
 
+	/**
+	 * Test method for {@link krconverse.baroness.move.DealCardsMove#valid(ks.common.games.Solitaire)}.
+	 */
 	@Test
 	public void testValid() {
 		
@@ -178,6 +193,9 @@ public class DealCardsMoveTest {
 		}
 	}
 
+	/**
+	 * Test method for {@link krconverse.baroness.move.DealCardsMove#DealCardsMove(ks.common.model.Deck, ks.common.model.Column[])}
+	 */
 	@Test
 	public void testDealCardsMoveDeckColumn() {		
 		// test with normal input, with and without empty deck

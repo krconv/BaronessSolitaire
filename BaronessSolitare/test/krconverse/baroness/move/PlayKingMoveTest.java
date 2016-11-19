@@ -19,6 +19,9 @@ public class PlayKingMoveTest {
 	Pile foundation;
 	
 
+	/**
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		game = new Baroness();
@@ -33,11 +36,17 @@ public class PlayKingMoveTest {
 		foundation = (Pile) game.getModelElement("foundation");
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	@After
 	public void tearDown() throws Exception {
 		game.dispose();
 	}
 
+	/**
+	 * Test method for {@link krconverse.baroness.move.PlayKingMove#doMove(ks.common.games.Solitaire)}.
+	 */
 	@Test
 	public void testDoMove() {
 		DealCardsMove dealMove = new DealCardsMove(deck, columns);
@@ -69,6 +78,9 @@ public class PlayKingMoveTest {
 		dealMove.undo(game);
 	}
 
+	/**
+	 * Test method for {@link krconverse.baroness.move.PlayKingMove#undo(ks.common.games.Solitaire)}.
+	 */
 	@Test
 	public void testUndo() {
 		DealCardsMove dealMove = new DealCardsMove(deck, columns);
@@ -104,6 +116,9 @@ public class PlayKingMoveTest {
 		dealMove.undo(game);
 	}
 
+	/**
+	 * Test method for {@link krconverse.baroness.move.PlayKingMove#valid(ks.common.games.Solitaire)}.
+	 */
 	@Test
 	public void testValid() {
 		DealCardsMove dealMove = new DealCardsMove(deck, columns);
@@ -124,6 +139,9 @@ public class PlayKingMoveTest {
 		dealMove.undo(game);
 	}
 
+	/**
+	 * Test method for {@link krconverse.baroness.move.PlayKingMove#PlayKingMove(ks.common.model.Column, ks.common.model.Pile)}
+	 */
 	@Test
 	public void testPlayKingMoveColumnPile() {
 		DealCardsMove dealMove = new DealCardsMove(deck, columns);
@@ -140,6 +158,9 @@ public class PlayKingMoveTest {
 		new PlayKingMove(null, null);
 	}
 
+	/**
+	 * Test method for {@link krconverse.baroness.move.PlayKingMove#PlayKingMove(ks.common.model.Column, ks.common.model.Card, ks.common.model.Pile)}
+	 */
 	@Test
 	public void testPlayKingMoveColumnCardPile() {
 		DealCardsMove dealMove = new DealCardsMove(deck, columns);
