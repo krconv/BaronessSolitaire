@@ -70,6 +70,10 @@ public class DeckControllerTest extends KSTestCase {
 		game.dispose();
 	}
 	
+	
+	/**
+	 * Test that clicking on the deck deals cards. 
+	 */
 	@Test
 	public void testDealCards() {
 		DeckController controller = new DeckController(game);
