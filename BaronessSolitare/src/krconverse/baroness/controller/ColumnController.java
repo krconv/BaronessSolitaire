@@ -4,11 +4,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import krconverse.Baroness;
+import krconverse.baroness.move.MoveToEmptyColumnMove;
 import krconverse.baroness.move.PlayKingMove;
 import krconverse.baroness.move.PlayPairMove;
 import ks.common.model.Card;
 import ks.common.model.Column;
 import ks.common.model.Model;
+import ks.common.model.Move;
 import ks.common.model.Pile;
 import ks.common.view.ColumnView;
 import ks.common.view.Container;
@@ -86,16 +88,21 @@ public class ColumnController extends MouseAdapter {
 			Column sourceColumn = (Column) sourceColumnView.getModelElement();
 			Card cardBeingDragged = (Card) draggedWidget.getModelElement();
 			
-			// play the pair
-			PlayPairMove move = new PlayPairMove(sourceColumn, column, cardBeingDragged, (Pile) model.getElement("foundation"));
-
+			Move move;
+			if (column.empty()) {
+				// moving a card to the empty column
+				move = new MoveToEmptyColumnMove(sourceColumn, column, cardBeingDragged);
+			} else {
+				// play the pair
+				move = new PlayPairMove(sourceColumn, column, cardBeingDragged, (Pile) model.getElement("foundation"));
+			}
+			// make the move
 			if (move.doMove (game)) {
-				// played the pair successfully
 				game.pushMove(move);
 			} else {
 				// couldn't do the move
 				sourceColumn.add(cardBeingDragged);
-			}	
+			}
 		}
 
 		container.releaseDraggingObject();
