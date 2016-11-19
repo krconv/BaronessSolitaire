@@ -5,12 +5,11 @@
  */
 package krconverse.baroness.move;
 
-import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import junit.framework.TestCase;
 import krconverse.Baroness;
 import ks.common.model.Column;
 import ks.common.model.Deck;
@@ -20,15 +19,14 @@ import ks.launcher.Main;
 /**
  * Test class for {@link krconverse.baroness.move.PlayPairMove}
  */
-public class PlayPairMoveTest {
+public class PlayPairMoveTest extends TestCase {
 	Baroness game;
 	Deck deck;
 	Column[] columns;
 	Pile foundation;
 	
-
-	/**
-	 * @throws Exception
+	/* (non-Javadoc)
+	 * @see junit.framework.TestCase#setUp()
 	 */
 	@Before
 	public void setUp() throws Exception {
@@ -44,8 +42,8 @@ public class PlayPairMoveTest {
 		foundation = (Pile) game.getModelElement("foundation");
 	}
 
-	/**
-	 * @throws Exception
+	/* (non-Javadoc)
+	 * @see junit.framework.TestCase#tearDown()
 	 */
 	@After
 	public void tearDown() throws Exception {

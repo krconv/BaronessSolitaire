@@ -11,6 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import junit.framework.TestCase;
 import krconverse.Baroness;
 import ks.common.model.Column;
 import ks.common.model.Deck;
@@ -20,14 +21,14 @@ import ks.launcher.Main;
 /**
  * Test class for {@link krconverse.baroness.move.MoveCardToEmptyColumnMove}
  */
-public class MoveCardToEmptyColumnMoveTest {
+public class MoveCardToEmptyColumnMoveTest extends TestCase {
 	Baroness game;
 	Deck deck;
 	Column[] columns;
 	Pile foundation;
 
-	/**
-	 * @throws Exception
+	/* (non-Javadoc)
+	 * @see junit.framework.TestCase#setUp()
 	 */
 	@Before
 	public void setUp() throws Exception {
@@ -43,8 +44,8 @@ public class MoveCardToEmptyColumnMoveTest {
 		foundation = (Pile) game.getModelElement("foundation");
 	}
 
-	/**
-	 * @throws Exception
+	/* (non-Javadoc)
+	 * @see junit.framework.TestCase#tearDown()
 	 */
 	@After
 	public void tearDown() throws Exception {
