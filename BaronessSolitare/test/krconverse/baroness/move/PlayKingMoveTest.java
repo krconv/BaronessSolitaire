@@ -12,6 +12,9 @@ import ks.common.model.Deck;
 import ks.common.model.Pile;
 import ks.launcher.Main;
 
+/**
+ * Test class for {@link krconverse.baroness.move.PlayKingMove}
+ */
 public class PlayKingMoveTest {
 	Baroness game;
 	Deck deck;

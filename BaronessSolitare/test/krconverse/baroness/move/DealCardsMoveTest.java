@@ -16,8 +16,9 @@ import ks.common.model.Column;
 import ks.common.model.Deck;
 import ks.common.model.Pile;
 import ks.launcher.Main;
+
 /**
- * Tests that the DealMove class is working properly.
+ * Test class for {@link krconverse.baroness.move.DealCardsMove}
  */
 public class DealCardsMoveTest {
 	Baroness game;

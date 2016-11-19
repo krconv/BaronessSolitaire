@@ -18,7 +18,7 @@ import ks.common.model.Pile;
 import ks.launcher.Main;
 
 /**
- * Tests that the PlayPairMove is working properly.
+ * Test class for {@link krconverse.baroness.move.PlayPairMove}
  */
 public class PlayPairMoveTest {
 	Baroness game;
