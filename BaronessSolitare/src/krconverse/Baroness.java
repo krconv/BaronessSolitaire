@@ -6,12 +6,17 @@
 package krconverse;
 
 import krconverse.baroness.controller.DeckController;
+
+import java.util.Enumeration;
+
 import krconverse.baroness.controller.ColumnController;
 import ks.common.controller.SolitaireMouseMotionAdapter;
 import ks.common.games.Solitaire;
 import ks.common.games.SolitaireUndoAdapter;
+import ks.common.games.SolvableSolitaire;
 import ks.common.model.Column;
 import ks.common.model.Deck;
+import ks.common.model.Move;
 import ks.common.model.Pile;
 import ks.common.view.CardImages;
 import ks.common.view.ColumnView;
@@ -40,26 +45,18 @@ import ks.launcher.Main;
  * Score: A player's score is determined by how many cards are left in play.
  * This means that the goal of the game is to achieve a low or zero score.
  */
-public class Baroness extends Solitaire {
+public class Baroness extends Solitaire  implements SolvableSolitaire {
 
-	/** deck which cards are dealt from */
-	Deck deck;
-	/** columns which cards are dealt to and played from */
-	Column[] columns = new Column[5];
-	/** pile which pairs are moved to after being played */
-	Pile foundation;
+	Deck deck; // deck which cards are dealt from
+	Column[] columns = new Column[5]; // columns which cards are dealt to and played from
+	Pile foundation; // pile which pairs are moved to after being played
 
-	/** view for {@code deck} */
-	DeckView deckView;
-	/** views for {@code columns} */
-	ColumnView[] columnViews = new ColumnView[5];
-	/** view for {@code foundation} */
-	PileView foundationView;
+	DeckView deckView; // view for the deck
+	ColumnView[] columnViews = new ColumnView[5]; // views for the columns
+	PileView foundationView; // view for the foundation
 
-	/** view to show the score */
-	IntegerView scoreView;
-	/** view to show number of cards left in {@code deck} */
-	IntegerView cardsLeftView;
+	IntegerView scoreView; // view to show the score
+	IntegerView cardsLeftView; // view to show the cards left counter
 
 	/**
 	 * Creates a new Baroness Solitaire game.
@@ -209,5 +206,11 @@ public class Baroness extends Solitaire {
 	 */
 	public static void main (String []args) {
 		Main.generateWindow(new Baroness(), (int) System.currentTimeMillis());
+	}
+
+	@Override
+	public Enumeration<Move> availableMoves() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
