@@ -6,6 +6,7 @@
 package krconverse.baroness.move;
 
 import ks.common.games.Solitaire;
+import ks.common.model.Card;
 import ks.common.model.Column;
 import ks.common.model.Move;
 import ks.common.model.Pile;
@@ -15,11 +16,14 @@ import ks.common.model.Pile;
  */
 public class PlayKingMove extends Move {
 	Column sourceColumn;
+	Card card;
 	Pile foundation;
 	boolean isValid;
 	
 	/**
-	 * 
+	 * Creates a move which plays a King to the foundation.
+	 * @param sourceColumn The column which contains the King.
+	 * @param foundation The foundation that the King is being moved to.
 	 */
 	public PlayKingMove(Column sourceColumn, Pile foundation) {
 		this.sourceColumn = sourceColumn;
@@ -31,6 +35,22 @@ public class PlayKingMove extends Move {
 			isValid = sourceColumn.peek().getRank() == 13;
 		}
 	}
+	/**
+	 * Creates a move which plays a King to the foundation.
+	 * @param sourceColumn The column which contains the King.
+	 * @param card The card being played.
+	 * @param foundation The foundation that the King is being moved to.
+	 */
+	public PlayKingMove(Column sourceColumn, Card card, Pile foundation) {
+		this.sourceColumn = sourceColumn;
+		this.card = card;
+		this.foundation = foundation;
+		if (card == null) { // no card to play
+			isValid = false;
+		} else {
+			isValid = card.getRank() == 13;
+		}
+	}
 
 	/* (non-Javadoc)
 	 * @see ks.common.model.Move#doMove(ks.common.games.Solitaire)
@@ -38,7 +58,7 @@ public class PlayKingMove extends Move {
 	@Override
 	public boolean doMove(Solitaire game) {
 		if (isValid) {
-			foundation.add(sourceColumn.get());
+			foundation.add(card == null ? sourceColumn.get() : card);
 			game.updateScore(-1);
 			return true;
 		} else {

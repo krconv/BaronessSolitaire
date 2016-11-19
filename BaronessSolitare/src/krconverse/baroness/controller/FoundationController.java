@@ -1,59 +1,33 @@
-/**
- * DealFiveCardsController.java
- * 
- * @author Kodey Converse (krconverse@wpi.edu)
- */
 package krconverse.baroness.controller;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import krconverse.Baroness;
-import krconverse.baroness.move.DealCardsMove;
+import krconverse.baroness.move.PlayKingMove;
 import ks.common.model.Card;
 import ks.common.model.Column;
-import ks.common.model.Deck;
 import ks.common.model.Model;
-import ks.common.model.Move;
+import ks.common.model.Pile;
 import ks.common.view.ColumnView;
 import ks.common.view.Container;
 import ks.common.view.Widget;
 
 /**
- * Controller to handle the player's interactions with the deck.
+ * Controller to handle the player's interactions with the foundation pile.
  */
-public class DeckController extends MouseAdapter {
+public class FoundationController extends MouseAdapter {
 	Baroness game;
 	Model model;
 	
 	/**
-	 * Creates a new controller to handle the player's interactions with the deck.
+	 * Creates a new controller to handle the player's interactions with the foundation pile.
 	 */
-	public DeckController(Baroness game, Model model) {
+	public FoundationController(Baroness game, Model model) {
 		this.game = game;
 		this.model = model;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
-	 */
-	@Override
-	public void mouseClicked(MouseEvent event) {
-		super.mouseClicked(event);
-		Deck deck = (Deck) model.getElement("deck");
-		
-		Column[] columns = new Column[5];
-		for (int i = 0; i < 5; i++) {
-			columns[i] = (Column) model.getElement("col" + (i + 1));
-		}
-
-		Move move = new DealCardsMove(deck, columns);
-		if (move.doMove(game)) {
-			// move was successful
-			game.pushMove(move);
-			game.refreshWidgets();
-		}	
-	}
 
 	/* (non-Javadoc)
 	 * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
@@ -77,10 +51,18 @@ public class DeckController extends MouseAdapter {
 		Column sourceColumn = (Column) sourceColumnView.getModelElement();
 		Card cardBeingDragged = (Card) draggedWidget.getModelElement();
 		
-		// just cancel the drag
-		sourceColumn.add(cardBeingDragged);
+		// the user is playing a card
+		PlayKingMove move = new PlayKingMove(sourceColumn, cardBeingDragged, (Pile) model.getElement("foundation"));
+		// make the move
+		if (move.doMove (game)) {
+			game.pushMove(move);
+		} else {
+			// couldn't do the move
+			sourceColumn.add(cardBeingDragged);
+		}
 		
 		container.releaseDraggingObject();
 		container.repaint();
 	}
+
 }

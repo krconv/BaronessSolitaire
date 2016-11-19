@@ -72,7 +72,7 @@ public class ColumnController extends MouseAdapter {
 		// see if there is a card being dropped here
 		Widget draggedWidget = container.getActiveDraggingObject();
 		if (draggedWidget == Container.getNothingBeingDragged()) {
-			container.releaseDraggingObject();		
+			container.releaseDraggingObject();
 			return;
 		}
 		

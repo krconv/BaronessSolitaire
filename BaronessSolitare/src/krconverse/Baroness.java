@@ -6,6 +6,7 @@
 package krconverse;
 
 import krconverse.baroness.controller.DeckController;
+import krconverse.baroness.controller.FoundationController;
 
 import java.util.Enumeration;
 
@@ -169,6 +170,11 @@ public class Baroness extends Solitaire  implements SolvableSolitaire {
 			columnViews[i].setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
 			columnViews[i].setUndoAdapter(new SolitaireUndoAdapter(this));
 		}
+		
+		// and lastly the foundation controllers
+		foundationView.setMouseAdapter(new FoundationController(this, model));
+		foundationView.setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
+		foundationView.setUndoAdapter(new SolitaireUndoAdapter(this));
 	}
 	
 	/*
