@@ -196,16 +196,6 @@ public class Baroness extends Solitaire implements SolvableSolitaire {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see ks.common.games.Solitaire#getVersion()
-	 */
-	@Override
-	public String getVersion() {
-		return "1.0";
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see ks.common.games.Solitaire#hasWon()
 	 */
 	@Override

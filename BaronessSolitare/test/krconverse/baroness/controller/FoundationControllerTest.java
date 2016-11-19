@@ -77,17 +77,24 @@ public class FoundationControllerTest extends KSTestCase {
 	@Test
 	public void testPlayKing() {
 		DeckController deckController = new DeckController(game);
-		ColumnController columnController = new ColumnController(game, game.getColumnViews()[4]);
+		ColumnController[] columnControllers = new ColumnController[5];
+		for (int i = 0; i < 5; i++) {
+			columnControllers[i] = new ColumnController(game, game.getColumnViews()[i]);
+		}
 		FoundationController controller = new FoundationController(game);
 		
 		// test that an invalid move doesn't get tracked
-		columnController.mousePressed(createPressed(game, game.getColumnViews()[4], 0, 0));
+		columnControllers[4].mousePressed(createPressed(game, game.getColumnViews()[4], 0, 0));
 		controller.mouseReleased(createReleased(game, game.getFoundationView(), 0, 0));
 		assertTrue(Collections.list(game.getMoves()).isEmpty());
-		
-		// test that a valid move does get tracked
+		// with a non-king card
 		deckController.mouseClicked(createClicked(game, game.getDeckView(), 0, 0));
-		columnController.mousePressed(createPressed(game, game.getColumnViews()[4], 0, 0));
+		columnControllers[1].mousePressed(createPressed(game, game.getColumnViews()[1], 0, 0));
+		controller.mouseReleased(createReleased(game, game.getFoundationView(), 0, 0));
+		assertEquals(1, Collections.list(game.getMoves()).size());
+				
+		// test that a valid move does get tracked
+		columnControllers[4].mousePressed(createPressed(game, game.getColumnViews()[4], 0, 0));
 		controller.mouseReleased(createReleased(game, game.getFoundationView(), 0, 0));
 		List<Move> moves = Collections.list(game.getMoves());
 		assertEquals(2, Collections.list(game.getMoves()).size());

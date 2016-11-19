@@ -71,6 +71,48 @@ public class ColumnControllerTest extends KSTestCase {
 		assertEquals(52, game.getNumLeft().getValue());
 		game.dispose();
 	}
+
+	/**
+	 * Test method for {@link krconverse.baroness.controller.FoundationController#mousedPressed(java.awt.event.MouseEvent)}
+	 */
+	@Test
+	public void testMousePressed() {
+		// make sure the user can't drag a card from the middle of the column
+		DeckController deckController = new DeckController(game);
+		ColumnController sourceController = new ColumnController(game, game.getColumnViews()[1]);
+		ColumnController targetController = new ColumnController(game, game.getColumnViews()[4]);
+				
+		// test that an invalid move does get tracked
+		deckController.mouseClicked(createClicked(game, game.getDeckView(), 0, 0));
+		deckController.mouseClicked(createClicked(game, game.getDeckView(), 0, 0));
+		sourceController.mousePressed(createPressed(game, game.getColumnViews()[1], 0, 0));
+		targetController.mouseReleased(createReleased(game, game.getColumnViews()[4], 0, 0));
+		assertEquals(2, Collections.list(game.getMoves()).size());
+		
+		game.undoMove();
+		game.undoMove();
+	}
+	
+
+	/**
+	 * Test method for {@link krconverse.baroness.controller.FoundationController#mouseReleased(java.awt.event.MouseEvent)}
+	 */
+	@Test
+	public void testMouseReleased() {
+		// make sure dragging a card back to its original column does nothing
+		DeckController deckController = new DeckController(game);
+		ColumnController controller = new ColumnController(game, game.getColumnViews()[1]);
+				
+		// test that the card moved back to the same column isn't considered a move
+		deckController.mouseClicked(createClicked(game, game.getDeckView(), 0, 0));
+		deckController.mouseClicked(createClicked(game, game.getDeckView(), 0, 0));
+		controller.mousePressed(createPressed(game, game.getColumnViews()[1], 0, 0));
+		controller.mouseReleased(createReleased(game, game.getColumnViews()[1], 1, 0));
+		assertEquals(2, Collections.list(game.getMoves()).size());
+		
+		game.undoMove();
+		game.undoMove();
+	}
 	
 	/**
 	 * Test that dragging two cards onto each other attempts to play a pair.
@@ -86,14 +128,19 @@ public class ColumnControllerTest extends KSTestCase {
 		sourceController.mousePressed(createPressed(game, game.getColumnViews()[1], 0, 0));
 		targetController.mouseReleased(createReleased(game, game.getColumnViews()[4], 0, 0));
 		assertTrue(Collections.list(game.getMoves()).isEmpty());
+		// and on non-empty columns
+		deckController.mouseClicked(createClicked(game, game.getDeckView(), 0, 0));
+		sourceController.mousePressed(createPressed(game, game.getColumnViews()[1], 0, 0));
+		targetController.mouseReleased(createReleased(game, game.getColumnViews()[4], 0, 0));
+		assertEquals(1, Collections.list(game.getMoves()).size());
+		
 		
 		// test that a valid move does get tracked
-		deckController.mouseClicked(createClicked(game, game.getDeckView(), 0, 0));
 		deckController.mouseClicked(createClicked(game, game.getDeckView(), 0, 0));
 		sourceController.mousePressed(createPressed(game, game.getColumnViews()[1], 0, cardOffset));
 		targetController.mouseReleased(createReleased(game, game.getColumnViews()[4], 0, cardOffset));
 		List<Move> moves = Collections.list(game.getMoves());
-		assertEquals(3, Collections.list(game.getMoves()).size());
+		assertEquals(3, moves.size());
 		Move move = moves.get(2);
 		assertTrue(move instanceof PlayPairMove);
 		assertTrue(game.undoMove());
