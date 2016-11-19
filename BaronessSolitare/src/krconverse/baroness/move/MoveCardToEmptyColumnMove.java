@@ -29,7 +29,11 @@ public class MoveCardToEmptyColumnMove extends Move {
 		this.sourceColumn = sourceColumn;
 		this.targetColumn = targetColumn;
 		this.cardBeingDragged = cardBeingDragged;
-		isValid = targetColumn.empty() && !sourceColumn.empty();
+		if (sourceColumn == null || targetColumn == null || cardBeingDragged == null) {
+			isValid = false;
+		} else {
+			isValid = targetColumn.empty() && !sourceColumn.empty();
+		}
 	}
 
 	/**
@@ -40,7 +44,11 @@ public class MoveCardToEmptyColumnMove extends Move {
 	public MoveCardToEmptyColumnMove(Column sourceColumn, Column targetColumn) {
 		this.sourceColumn = sourceColumn;
 		this.targetColumn = targetColumn;
-		isValid = targetColumn.empty() && sourceColumn.count() > 1;
+		if (sourceColumn == null || targetColumn == null) {
+			isValid = false;
+		} else {
+			isValid = targetColumn.empty() && sourceColumn.count() > 1;
+		}
 	}
 	
 	/* (non-Javadoc)
