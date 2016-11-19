@@ -13,7 +13,6 @@ import krconverse.baroness.move.DealCardsMove;
 import ks.common.model.Card;
 import ks.common.model.Column;
 import ks.common.model.Deck;
-import ks.common.model.Model;
 import ks.common.model.Move;
 import ks.common.view.ColumnView;
 import ks.common.view.Container;
@@ -24,14 +23,13 @@ import ks.common.view.Widget;
  */
 public class DeckController extends MouseAdapter {
 	Baroness game;
-	Model model;
-	
+
 	/**
 	 * Creates a new controller to handle the player's interactions with the deck.
+	 * @param game The game to act upon.
 	 */
-	public DeckController(Baroness game, Model model) {
+	public DeckController(Baroness game) {
 		this.game = game;
-		this.model = model;
 	}
 
 	/* (non-Javadoc)
@@ -40,11 +38,11 @@ public class DeckController extends MouseAdapter {
 	@Override
 	public void mouseClicked(MouseEvent event) {
 		super.mouseClicked(event);
-		Deck deck = (Deck) model.getElement("deck");
+		Deck deck = (Deck) game.getModelElement("deck");
 		
 		Column[] columns = new Column[5];
 		for (int i = 0; i < 5; i++) {
-			columns[i] = (Column) model.getElement("col" + (i + 1));
+			columns[i] = (Column) game.getModelElement("col" + (i + 1));
 		}
 
 		Move move = new DealCardsMove(deck, columns);

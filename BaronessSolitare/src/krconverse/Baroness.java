@@ -166,7 +166,7 @@ public class Baroness extends Solitaire implements SolvableSolitaire {
 	 */
 	private void initializeControllers() {
 		// set up the deck controllers
-		deckView.setMouseAdapter(new DeckController(this, model));
+		deckView.setMouseAdapter(new DeckController(this));
 		deckView.setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
 		deckView.setUndoAdapter(new SolitaireUndoAdapter(this));
 		
@@ -211,6 +211,28 @@ public class Baroness extends Solitaire implements SolvableSolitaire {
 	@Override
 	public boolean hasWon() {
 		return getScoreValue() == 0;
+	}
+	
+
+	/**
+	 * @return the deckView
+	 */
+	public DeckView getDeckView() {
+		return deckView;
+	}
+
+	/**
+	 * @return the columnViews
+	 */
+	public ColumnView[] getColumnViews() {
+		return columnViews;
+	}
+
+	/**
+	 * @return the foundationView
+	 */
+	public PileView getFoundationView() {
+		return foundationView;
 	}
 
 	/** 
