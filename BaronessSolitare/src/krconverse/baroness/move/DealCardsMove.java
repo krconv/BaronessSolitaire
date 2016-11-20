@@ -35,6 +35,9 @@ public class DealCardsMove extends Move {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see ks.common.model.Move#doMove(ks.common.games.Solitaire)
+	 */
 	@Override
 	public boolean doMove(Solitaire game) {
 		if (isValid) {
@@ -48,6 +51,9 @@ public class DealCardsMove extends Move {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see ks.common.model.Move#undo(ks.common.games.Solitaire)
+	 */
 	@Override
 	public boolean undo(Solitaire game) {
 		if (isValid) {
@@ -61,6 +67,9 @@ public class DealCardsMove extends Move {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see ks.common.model.Move#valid(ks.common.games.Solitaire)
+	 */
 	@Override
 	public boolean valid(Solitaire game) {
 		return isValid;
