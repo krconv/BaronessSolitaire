@@ -84,26 +84,31 @@ public class ColumnController extends MouseAdapter {
 		
 		// a card is being dropped here
 		Widget sourceWidget = container.getDragSource();
-		
-		// the card being dragged came from another column
-		ColumnView sourceColumnView = (ColumnView) sourceWidget;
-		Column sourceColumn = (Column) sourceColumnView.getModelElement();
 		Card cardBeingDragged = (Card) draggedWidget.getModelElement();
 		
-		Move move;
-		if (column.empty()) {
-			// moving a card to the empty column
-			move = new MoveCardToEmptyColumnMove(sourceColumn, column, cardBeingDragged);
+		if (sourceWidget == view) {
+			// cards is being dragged from the same column
+			column.add(cardBeingDragged);
 		} else {
-			// play the pair
-			move = new PlayPairMove(sourceColumn, column, cardBeingDragged, (Pile) game.getModelElement("foundation"));
-		}
-		// make the move
-		if (move.doMove (game)) {
-			game.pushMove(move);
-		} else {
-			// couldn't do the move
-			sourceColumn.add(cardBeingDragged);
+			// the card being dragged came from another column
+			ColumnView sourceColumnView = (ColumnView) sourceWidget;
+			Column sourceColumn = (Column) sourceColumnView.getModelElement();
+			
+			Move move;
+			if (column.empty()) {
+				// moving a card to the empty column
+				move = new MoveCardToEmptyColumnMove(sourceColumn, column, cardBeingDragged);
+			} else {
+				// play the pair
+				move = new PlayPairMove(sourceColumn, column, cardBeingDragged, (Pile) game.getModelElement("foundation"));
+			}
+			// make the move
+			if (move.doMove (game)) {
+				game.pushMove(move);
+			} else {
+				// couldn't do the move
+				sourceColumn.add(cardBeingDragged);
+			}
 		}
 
 		container.releaseDraggingObject();

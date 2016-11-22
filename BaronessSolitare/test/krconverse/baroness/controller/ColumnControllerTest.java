@@ -133,6 +133,12 @@ public class ColumnControllerTest extends KSTestCase {
 		sourceController.mousePressed(createPressed(game, game.getColumnViews()[1], 0, 0));
 		targetController.mouseReleased(createReleased(game, game.getColumnViews()[4], 0, 0));
 		assertEquals(1, Collections.list(game.getMoves()).size());
+		// and on the same column
+		deckController.mouseClicked(createClicked(game, game.getDeckView(), 0, 0));
+		sourceController.mousePressed(createPressed(game, game.getColumnViews()[0], 0, 0));
+		sourceController.mouseReleased(createReleased(game, game.getColumnViews()[0], 1, 1));
+		assertEquals(2, Collections.list(game.getMoves()).size());
+		game.undoMove();
 		
 		
 		// test that a valid move does get tracked
@@ -223,5 +229,4 @@ public class ColumnControllerTest extends KSTestCase {
 		// test creating the controller with valid input
 		new ColumnController(game, game.getColumnViews()[0]);
 	}
-
 }
