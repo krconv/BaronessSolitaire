@@ -18,6 +18,7 @@ import java.util.Enumeration;
 
 import krconverse.baroness.controller.ColumnController;
 import ks.common.controller.SolitaireMouseMotionAdapter;
+import ks.common.controller.SolitaireReleasedAdapter;
 import ks.common.games.Solitaire;
 import ks.common.games.SolitaireUndoAdapter;
 import ks.common.games.SolvableSolitaire;
@@ -177,10 +178,25 @@ public class Baroness extends Solitaire implements SolvableSolitaire {
 			columnViews[i].setUndoAdapter(new SolitaireUndoAdapter(this));
 		}
 		
-		// and lastly the foundation controllers
+		// the foundation controllers
 		foundationView.setMouseAdapter(new FoundationController(this));
 		foundationView.setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
 		foundationView.setUndoAdapter(new SolitaireUndoAdapter(this));
+		
+		// set up the default handlers to handle basic functionality for the score/cards left views
+		cardsLeftView.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		cardsLeftView.setMouseAdapter (new SolitaireReleasedAdapter(this));
+		cardsLeftView.setUndoAdapter (new SolitaireUndoAdapter(this));
+		scoreView.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		scoreView.setMouseAdapter (new SolitaireReleasedAdapter(this));
+		scoreView.setUndoAdapter (new SolitaireUndoAdapter(this));
+
+		
+		// finally cover the container for any events not handled by a widget
+		getContainer().setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
+		getContainer().setMouseAdapter (new SolitaireReleasedAdapter(this));
+		getContainer().setUndoAdapter (new SolitaireUndoAdapter(this));
+
 	}
 	
 	/*
